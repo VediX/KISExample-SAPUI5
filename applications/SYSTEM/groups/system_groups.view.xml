@@ -1,0 +1,11 @@
+<core:View  id="app_system_groups"
+			xmlns="sap.m"
+			xmlns:core="sap.ui.core"
+			xmlns:mvc="sap.ui.core.mvc"
+			xmlns:html="http://www.w3.org/1999/xhtml"
+			controllerName="KIS.applications.SYSTEM.groups.system_groups"
+			height="100%">
+	<Page showHeader="false">
+		<Text text="Groups and users. Content..."/>
+	</Page>
+</core:View>

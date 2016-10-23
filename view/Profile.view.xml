@@ -1,0 +1,13 @@
+<core:View  xmlns="sap.m"
+			xmlns:core="sap.ui.core"
+			xmlns:mvc="sap.ui.core.mvc"
+			xmlns:html="http://www.w3.org/1999/xhtml"
+			controllerName="KIS.controller.Profile"
+			height="100%">
+	<Page showHeader="false" class="KIS-Profile">
+		<HBox class="KIS-Profile-title">
+			<Text text="Profile"/>
+		</HBox>
+		<Text text="Content..."/>
+	</Page>
+</core:View>

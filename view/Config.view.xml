@@ -1,0 +1,13 @@
+<core:View  xmlns="sap.m"
+			xmlns:core="sap.ui.core"
+			xmlns:mvc="sap.ui.core.mvc"
+			xmlns:html="http://www.w3.org/1999/xhtml"
+			controllerName="KIS.controller.Config"
+			height="100%">
+	<Page showHeader="false" class="KIS-Config">
+		<HBox class="KIS-Config-title">
+			<Text text="Config"/>
+		</HBox>
+		<Text text="Content..."/>
+	</Page>
+</core:View>

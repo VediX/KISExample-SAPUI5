@@ -1,0 +1,62 @@
+<core:View  xmlns="sap.m"
+			xmlns:m="sap.m"
+			xmlns:core="sap.ui.core"
+			xmlns:mvc="sap.ui.core.mvc"
+			xmlns:html="http://www.w3.org/1999/xhtml"
+			xmlns:tnt="sap.tnt"
+			xmlns:l="sap.ui.layout"
+			controllerName="KIS.controller.Main"
+			height="100%"
+			class="KIS">
+	<tnt:ToolPage id="toolPage" defaultTransitionName="fade">
+		<tnt:header>
+			<tnt:ToolHeader content="{path: 'mainmenu>/horizmenu', factory: '.horizMenuCreateContent' }" width="100%"></tnt:ToolHeader>
+		</tnt:header>
+		<tnt:sideContent>
+			<tnt:SideNavigation itemSelect="onPressVerticalMenuItem">
+				<tnt:NavigationList items="{path: 'mainmenu>/applications' }">
+					<tnt:NavigationListItem text="{mainmenu>title}"
+											icon="{mainmenu>icon}"
+											expanded="{mainmenu>expanded}"
+											items="{ path: 'mainmenu>items', templateShareable: false }"
+											key="{mainmenu>key}">
+						<tnt:NavigationListItem text="{mainmenu>title}"
+												key="{mainmenu>key}"/>
+					</tnt:NavigationListItem>
+				</tnt:NavigationList>
+				<tnt:fixedItem>
+					<tnt:NavigationList items="{path: 'mainmenu>/system' }">
+						<tnt:NavigationListItem text="{mainmenu>title}"
+												icon="{mainmenu>icon}"
+												expanded="{mainmenu>expanded}"
+												items="{ path: 'mainmenu>items', templateShareable: false }"
+												key="{mainmenu>key}">
+							<tnt:NavigationListItem text="{mainmenu>title}"
+													key="{mainmenu>key}"/>
+						</tnt:NavigationListItem>
+					</tnt:NavigationList>
+				</tnt:fixedItem>
+			</tnt:SideNavigation>
+		</tnt:sideContent>
+		<tnt:mainContents>
+			<NavContainer id="pageContainer"><pages></pages></NavContainer>
+		</tnt:mainContents>
+	</tnt:ToolPage>
+	
+	<!--<footer>
+        <OverflowToolbar id="otbFooter">
+            <ToolbarSpacer/>
+            <Button type="Accept" text="Accept">
+                <layoutData><OverflowToolbarLayoutData moveToOverflow="false" /></layoutData>
+            </Button>
+            <Button type="Reject" text="Reject">
+                <layoutData><OverflowToolbarLayoutData moveToOverflow="false" /></layoutData>
+            </Button>
+            <OverflowToolbarButton text="Delete" icon="sap-icon://delete"/>
+            <OverflowToolbarButton text="Edit" icon="sap-icon://edit"/>
+            <OverflowToolbarButton text="Add" icon="sap-icon://add"/>
+            <OverflowToolbarButton text="Favorite" icon="sap-icon://favorite"/>
+            <OverflowToolbarButton text="Flag" icon="sap-icon://flag"/>
+        </OverflowToolbar>
+	</footer>-->
+</core:View>

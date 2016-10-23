@@ -1,0 +1,19 @@
+.KIS .sapTntToolPageMain {
+	transition: none;
+	-webkit-transform: none;
+}
+html:not([data-sap-ui-animation='off']) .KIS .sapTntToolPageMain {
+	transition: none;
+	-webkit-transform: none;
+}
+
+.sapMPage.KIS-Home .KIS-Home-title {
+	display: inline !important;
+	padding: 16px;
+	text-align: center;
+}
+.sapMPage.KIS-Home .KIS-Home-title span.sapMText {
+	font-weight: bold;
+	font-size: 20px;
+	color: #2e2e2e;
+}

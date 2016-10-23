@@ -1,0 +1,63 @@
+<core:View  id="mod3_section1"
+			xmlns="sap.m"
+			xmlns:core="sap.ui.core"
+			xmlns:mvc="sap.ui.core.mvc"
+			xmlns:html="http://www.w3.org/1999/xhtml"
+			xmlns:l="sap.ui.layout"
+			controllerName="KIS.applications.MOD3.section1.mod3_section1"
+			height="100%">
+	<Page showHeader="true" title="Module3 Section1" showNavButton="false">
+		<customHeader>
+			<Bar>
+				<contentLeft>
+					<!-- <Button text="Отменить" press="onNavBack"/> -->
+				</contentLeft>
+				<contentMiddle>
+					<Text text="Module3 Section1"/>
+				</contentMiddle>
+				<contentRight>
+					<Button icon="sap-icon://decline" press="onPressClose"/>
+				</contentRight>
+			</Bar>
+		</customHeader>
+		<content>
+			<l:ResponsiveSplitter defaultPane="app_mod3_section1_default">
+				<l:PaneContainer>
+					<l:SplitPane requiredParentWidth="400" id="app_mod3_section1_default">
+						<Panel headerText="Tree categories">
+							<VBox>
+								<Text text="Category 1"/>
+								<Text text="Category 2"/>
+								<Text text="Category 3"/>
+								<Text text=" - Category 3.1"/>
+								<Text text=" - Category 3.2"/>
+								<Text text="Category 4"/>
+								<Text text=" - Category 4.1"/>
+								<Text text=" - - Category 4.1.1"/>
+							</VBox>
+						</Panel>
+					</l:SplitPane>
+					<l:PaneContainer orientation="Vertical">
+						<l:SplitPane requiredParentWidth="600">
+							<Panel headerText="Resources grid">
+								<VBox>
+									<Text text="Resource link 1"/>
+									<Text text="Resource link 2"/>
+									<Text text="Resource link 3"/>
+								</VBox>
+							</Panel>
+						</l:SplitPane>
+						<l:SplitPane requiredParentWidth="800">
+							<Panel headerText="Keys grid">
+								<VBox>
+									<Text text="Key 1"/>
+									<Text text="Key 2"/>
+								</VBox>
+							</Panel>
+						</l:SplitPane>
+					</l:PaneContainer>
+				</l:PaneContainer>
+			</l:ResponsiveSplitter>
+		</content>
+	</Page>
+</core:View>

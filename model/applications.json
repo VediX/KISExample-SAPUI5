@@ -1,0 +1,53 @@
+{
+	"applications": [
+		{
+			"key": "MOD1",
+			"title": "Module1",
+			"icon": "sap-icon://globe",
+			"sections": [
+				{
+					"key": "SECTION1",
+					"title": "Module1 Section1"
+				},
+				{
+					"key": "SECTION2",
+					"title": "Module1 Section2"
+				},{
+					"key": "SECTION3",
+					"title": "Module1 Section3"
+				},
+				{
+					"key": "SECTION4",
+					"title": "Module1 Section4"
+				}
+			]
+		},
+		{
+			"key": "MOD2",
+			"title": "Module2",
+			"icon": "sap-icon://payment-approval",
+			"sections": [
+				{
+					"key": "SECTION1",
+					"title": "Module2 Section1"
+				},
+				{
+					"key": "SECTION2",
+					"title": "Module2 Section2"
+				}
+			]
+		},
+		{
+			"key": "MOD3",
+			"title": "Module3",
+			"icon": "sap-icon://key",
+			"expanded": true,
+			"sections": [
+				{
+					"key": "SECTION1",
+					"title": "Module3 Section1 "
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,23 @@
+{
+	"key": "SYSTEM",
+	"title": "System",
+	"icon": "sap-icon://wrench",
+	"sections": [
+		{
+			"key": "GROUPS",
+			"title": "Groups and users"
+		},
+		{
+			"key": "RIGHTS",
+			"title": "Groups and rights"
+		},
+		{
+			"key": "SESSIONS",
+			"title": "Sessions"
+		},
+		{
+			"key": "AUDIT",
+			"title": "Audit"
+		}
+	]
+}

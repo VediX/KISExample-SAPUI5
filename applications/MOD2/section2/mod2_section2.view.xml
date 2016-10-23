@@ -1,0 +1,11 @@
+<core:View  id="mod2_section2"
+			xmlns="sap.m"
+			xmlns:core="sap.ui.core"
+			xmlns:mvc="sap.ui.core.mvc"
+			xmlns:html="http://www.w3.org/1999/xhtml"
+			controllerName="KIS.applications.MOD2.section2.mod2_section2"
+			height="100%">
+	<Page showHeader="false">
+		<Text text="Module2 Section2 Content..."/>
+	</Page>
+</core:View>

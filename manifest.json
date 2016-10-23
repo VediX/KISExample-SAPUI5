@@ -1,0 +1,96 @@
+{
+	"_version": "1.1.0",
+	"sap.app": {
+		"_version": "1.1.0",
+		"id": "KIS",
+		"type": "application",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		}
+	},
+	"sap.ui": {
+		"_version": "1.1.0",
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_bluecrystal"
+		]
+	},
+	"sap.ui5": {
+		"_version": "1.1.0",
+		"rootView": "KIS.view.Main",
+		"autoPrefixId": true,
+		"dependencies": {
+			"minUI5Version": "1.30",
+			"libs": {
+				"sap.m": { }
+			}
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "KIS.i18n.i18n"
+				}
+			}
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "KIS.view",
+				"controlId": "pageContainer",
+				"controlAggregation": "pages",
+				"transition": "show",
+				"bypassed": {
+					"target": "notFound"
+				}
+			},
+			"routes": [{
+				"pattern": "",
+				"name": "HOME",
+				"target": "home"
+			},{
+				"pattern": "profile",
+				"name": "PROFILE",
+				"target": "profile"
+			},{
+				"pattern": "about",
+				"name": "ABOUT",
+				"target": "about"
+			},{
+				"pattern": "config",
+				"name": "CONFIG",
+				"target": "config"
+			}],
+			"targets": {
+				"home": {
+					"viewName": "Home",
+					"viewLevel" : 1
+				},
+				"profile": {
+					"viewName": "Profile",
+					"viewLevel" : 2
+				},
+				"about": {
+					"viewName": "About",
+					"viewLevel" : 2
+				},
+				"config": {
+					"viewName": "Config",
+					"viewLevel" : 2
+				},
+				"notFound": {
+					"viewName": "NotFound",
+					"transition": "show"
+				}
+			}
+		}
+	}
+}

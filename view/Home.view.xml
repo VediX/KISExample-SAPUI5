@@ -1,0 +1,15 @@
+<core:View  xmlns="sap.m"
+			xmlns:core="sap.ui.core"
+			xmlns:mvc="sap.ui.core.mvc"
+			xmlns:html="http://www.w3.org/1999/xhtml"
+			controllerName="KIS.controller.Home"
+			height="100%">
+	<Page showHeader="false" class="KIS-Home">
+		<HBox class="KIS-Home-title">
+			<Text text="Favorites"/>
+		</HBox>
+		<TileContainer id="launch_tiles_container" tiles="{favorites>/}">
+			<StandardTile icon="{favorites>icon}" number="{favorites>number}" numberUnit="{favorites>numberUnit}" title="{favorites>title}" info="{favorites>info}"/>
+		</TileContainer>
+	</Page>
+</core:View>
