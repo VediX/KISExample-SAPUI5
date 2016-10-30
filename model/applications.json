@@ -8,15 +8,13 @@
 				{
 					"key": "SECTION1",
 					"title": "Module1 Section1"
-				},
-				{
+				},{
 					"key": "SECTION2",
 					"title": "Module1 Section2"
 				},{
 					"key": "SECTION3",
 					"title": "Module1 Section3"
-				},
-				{
+				},{
 					"key": "SECTION4",
 					"title": "Module1 Section4"
 				}
@@ -30,8 +28,7 @@
 				{
 					"key": "SECTION1",
 					"title": "Module2 Section1"
-				},
-				{
+				},{
 					"key": "SECTION2",
 					"title": "Module2 Section2"
 				}

@@ -24,7 +24,7 @@ sap.ui.define([
 		
 		getRouter : function () {
 			return sap.ui.core.UIComponent.getRouterFor(this);
-		},
+		}
 
 		/*onNavBack: function (oEvent) {
 			var oHistory, sPreviousHash;
@@ -42,11 +42,6 @@ sap.ui.define([
 		onPressNavHome: function(oEvent) {
 			this.getRouter().navTo("Main", {});
 		}*/
-		
-		onPressClose: function(oEvent) {
-			this.getRouter().navTo("HOME", {});
-			// TODO: Как обработать это событие на уровне Main.view, что бы удалить соотв. tab ?
-		}
 	});
 
 });

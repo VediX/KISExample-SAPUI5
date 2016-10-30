@@ -6,11 +6,11 @@
 			xmlns:l="sap.ui.layout"
 			controllerName="KIS.applications.MOD3.section1.mod3_section1"
 			height="100%">
-	<Page showHeader="true" title="Module3 Section1" showNavButton="false">
-		<customHeader>
+	<Page showHeader="false">
+		<!--<customHeader>
 			<Bar>
 				<contentLeft>
-					<!-- <Button text="Отменить" press="onNavBack"/> -->
+					<Button text="Отменить" press="onNavBack"/>
 				</contentLeft>
 				<contentMiddle>
 					<Text text="Module3 Section1"/>
@@ -19,7 +19,7 @@
 					<Button icon="sap-icon://decline" press="onPressClose"/>
 				</contentRight>
 			</Bar>
-		</customHeader>
+		</customHeader>-->
 		<content>
 			<l:ResponsiveSplitter defaultPane="app_mod3_section1_default">
 				<l:PaneContainer>

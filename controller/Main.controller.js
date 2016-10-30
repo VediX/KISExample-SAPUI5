@@ -10,14 +10,30 @@ sap.ui.define([
 	return BaseController.extend("KIS.controller.Main", {
 		
 		openSections: [],
+		allSections: { "CONFIG": { title: "Config" }, "ABOUT": { title: "About" }, "PROFILE": { title: "Profile" } },
 		
 		onInit : function() {
-			
+
 			this.getView().setModel(new JSONModel({
 				applications: [],
 				system: [],
-				horizmenu: []
-			}), "mainmenu");
+				horizmenu: [],
+				section: { sectionKey: null, sectionTitle: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("HomePageTitle") /*default window*/, showBtnClose: false }
+			}), "view");
+			
+			var deferred1 = new $.Deferred();
+			var promise1 = deferred1.promise();
+			var deferred2 = new $.Deferred();
+			var promise2 = deferred2.promise();
+			
+			$.when(promise1, promise2).done( function() {
+				this.getOwnerComponent().getRouter().initialize();
+				
+				var section_key = location.hash.replace(/#\/(\w*)\/(\w*)/i, "$1_$2").toUpperCase();
+				if (section_key) {
+					this.gotoSection(section_key);
+				}
+			}.bind(this) );
 			
 			var menuApplications = new JSONModel();
 			menuApplications.loadData("model/applications.json");
@@ -33,9 +49,10 @@ sap.ui.define([
 						items: []
 					};
 					oApp.sections.forEach( function(oSection) {
+						var section_key = oApp.key.toUpperCase() + "_" + oSection.key.toUpperCase();
 						oAppItem.items.push({
 							title: oSection.title,
-							key: oApp.key.toUpperCase() + "_" + oSection.key.toUpperCase()
+							key: section_key
 						});
 						oRouter.addRoute({
 							pattern: oApp.key.toLowerCase() + "/" + oSection.key.toLowerCase(),
@@ -44,10 +61,14 @@ sap.ui.define([
 							view: oApp.key.toLowerCase() + "_" + oSection.key.toLowerCase(),
 							viewLevel: 2
 						});
-					});
+						this.allSections[section_key] = { title: oSection.title, appKey: oApp.key };
+					}.bind(this));
 					oMainmenuApplications.push(oAppItem);
-				});
-				this.getView().getModel("mainmenu").setProperty("/applications", oMainmenuApplications);
+				}.bind(this));
+				this.getView().getModel("view").setProperty("/applications", oMainmenuApplications);
+				
+				deferred1.resolve("ok");
+				
 			}.bind(this));
 			
 			var menuSystem = new JSONModel();
@@ -62,9 +83,10 @@ sap.ui.define([
 					items: []
 				};
 				oApp.sections.forEach( function(oSection) {
+					var section_key = oApp.key.toUpperCase() + "_" + oSection.key.toUpperCase();
 					oAppItem.items.push({
 						title: oSection.title,
-						key: oApp.key.toUpperCase() + "_" + oSection.key.toUpperCase()
+						key: section_key
 					});
 					oRouter.addRoute({
 						pattern: oApp.key.toLowerCase() + "/" + oSection.key.toLowerCase(),
@@ -73,8 +95,9 @@ sap.ui.define([
 						view: oApp.key.toLowerCase() + "_" + oSection.key.toLowerCase(),
 						viewLevel: 2
 					});
-				});
-				this.getView().getModel("mainmenu").setProperty("/system", [
+					this.allSections[section_key] = { title: oSection.title, appKey: oApp.key  };
+				}.bind(this));
+				this.getView().getModel("view").setProperty("/system", [
 					oAppItem,
 					{
 						title: 'Config',
@@ -86,9 +109,11 @@ sap.ui.define([
 						icon: 'sap-icon://hint'
 					}
 				]);
+				
+				deferred2.resolve("ok");
 			}.bind(this));
 			
-			this.buildOpenSectionsMenu();
+			this.rebuildOpenSectionsMenu(); // TODO: повесить на событие перехода роутера
 			
 			this.getView().setModel(new JSONModel(
 				[
@@ -114,7 +139,51 @@ sap.ui.define([
 			}.bind(this));
 		},
 		
-		buildOpenSectionsMenu: function() {
+		onPressVerticalMenuItem: function(oEvent) {
+			
+			var divGroup = $(window.event.target).closest("div.sapTntNavLIGroup");
+			if ((! divGroup.length)
+					|| ((divGroup.length) && (! divGroup.next("ul").children("li").length))) {
+				this._asideMainmenuShowHide(false);
+			}
+			
+			var item = oEvent.getParameter('item');
+			if ((item.getKey()) && (this.getRouter().getRoute(item.getKey()))) {
+				this.gotoSection( item.getKey() );
+			}
+		},
+		
+		gotoSection: function(section_key) {
+			
+			// TODO: проверить что ещё не перешли и перейти
+			this.getRouter().navTo(section_key, {});
+			
+			var section_title = this.allSections[section_key].title;
+			var section_title_with_app = (this.allSections[section_key].appKey ? this.allSections[section_key].appKey + ": " : "") + section_title;
+			
+			
+			this.getView().getModel("view").setProperty("/section", {
+				sectionKey: section_key,
+				sectionTitle: section_title_with_app,
+				showBtnClose: true
+			});
+			
+			// Add tab section in horizMenu
+			if ((section_key !== "CONFIG") && (section_key !== "ABOUT")) {
+				if (! this.openSections.filter( function(s) {
+					return (s.key == section_key);
+				}).length) {
+					this.openSections.push({
+						key: section_key,
+						title: section_title
+					});
+				}
+			}
+			
+			this.rebuildOpenSectionsMenu(); // TODO: повесить на событие перехода роутера
+		},
+		
+		rebuildOpenSectionsMenu: function() {
 			var buttonsLeft = [
 				{
 					_control_type: "Button",
@@ -143,7 +212,7 @@ sap.ui.define([
 					_overflowToolbarPriority: "NeverOverflow"
 				}
 			];
-			this.getView().getModel("mainmenu").setProperty(
+			this.getView().getModel("view").setProperty(
 				"/horizmenu",
 				[].concat(
 					buttonsLeft,
@@ -154,7 +223,8 @@ sap.ui.define([
 							type: sap.m.ButtonType.Transparent,
 							_overflowToolbarPriority: "Low",
 							_press: "onPressHorizMenuSectionBut",
-							_section_key: s.key
+							_section_key: s.key,
+							_active: (s.key == this.getView().getModel("view").getProperty("/section/sectionKey") ? true : false)
 						};
 					}.bind(this)),
 					buttonsRight
@@ -162,36 +232,29 @@ sap.ui.define([
 			);
 		},
 		
-		onPressVerticalMenuItem: function(oEvent) {
-			var item = oEvent.getParameter('item');
-			var divGroup = $(window.event.target).closest("div.sapTntNavLIGroup");
-			if ((! divGroup.length)
-					|| ((divGroup.length) && (! divGroup.next("ul").children("li").length))) {
-				this._asideMainmenuShowHide(false);
-			}
-			if ((item.getKey()) && (this.getRouter().getRoute(item.getKey()))) {
-				this.getRouter().navTo(item.getKey(), {});
-				// Add tab section in horizMenu
-				if ((item.getKey() !== "CONFIG") && (item.getKey() !== "ABOUT")) {
-					if (! this.openSections.filter( function(s) {
-						return (s.key == item.getKey());
-					}).length) {
-						this.openSections.push({
-							key: item.getKey(),
-							title: item.getText()
-						});
-						this.buildOpenSectionsMenu();
-					}
-				}
-			}
-		},
-		
 		onPressHorizMenuSectionBut: function(oEvent) {
-			this.getRouter().navTo(oEvent.getSource()._section_key, {});
+			this.gotoSection( oEvent.getSource()._section_key );
 		},
 		
 		onSideNavButtonPress : function() {
 			this._asideMainmenuShowHide();
+		},
+		
+		onPressSectionClose: function(oEvent) {
+			
+			var section_key = this.getView().getModel("view").getProperty("/section/sectionKey");
+			this.openSections = this.openSections.filter( function(s) {
+				return (s.key != section_key);
+			});
+			this.rebuildOpenSectionsMenu(); // TODO: повесить на событие перехода роутера
+			
+			this.getView().getModel("view").setProperty("/section", {
+				sectionKey: null,
+				sectionTitle: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("HomePageTitle"), // "Favorites"
+				showBtnClose: false
+			});
+			
+			this.getRouter().navTo("HOME", {});
 		},
 		
 		_asideMainmenuShowHide: function(makeVisible) {
@@ -210,10 +273,30 @@ sap.ui.define([
 				placement: sap.m.PlacementType.Bottom,
 				content:[
 					new Button({
+						text: 'Favorites',
+						icon: 'sap-icon://favorite-list',
+						type: sap.m.ButtonType.Transparent,
+						press: function() {
+							this.getView().getModel("view").setProperty("/section", {
+								sectionKey: null,
+								sectionTitle: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("HomePageTitle"),
+								showBtnClose: false
+							});
+							this.rebuildOpenSectionsMenu(); // TODO: повесить на событие перехода роутера 
+							this.getRouter().navTo("HOME", {});
+						}.bind(this)
+					}),
+					new Button({
 						text: 'Profile',
 						icon: 'sap-icon://key-user-settings',
 						type: sap.m.ButtonType.Transparent,
 						press: function() {
+							this.getView().getModel("view").setProperty("/section", {
+								sectionKey: "PROFILE",
+								sectionTitle: "Profile",
+								showBtnClose: true
+							});
+							this.rebuildOpenSectionsMenu(); // TODO: повесить на событие перехода роутера 
 							this.getRouter().navTo("PROFILE", {});
 						}.bind(this)
 					}),
@@ -243,6 +326,9 @@ sap.ui.define([
 					}
 					if (oContext.getProperty("_section_key")) {
 						oControl._section_key = oContext.getProperty("_section_key");
+						if (oContext.getProperty("_active")) {
+							oControl.addStyleClass("active");
+						}
 					}
 					break;
 				}

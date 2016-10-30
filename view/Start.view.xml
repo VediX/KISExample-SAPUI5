@@ -1,0 +1,13 @@
+<core:View  xmlns="sap.m"
+			xmlns:core="sap.ui.core"
+			xmlns:mvc="sap.ui.core.mvc"
+			xmlns:html="http://www.w3.org/1999/xhtml"
+			controllerName___________="KIS.controller.Start"
+			height="100%"
+			class="KIS">
+	<Page showHeader="false" busy="true" busyIndicatorDelay="0">
+		<content>
+			<Text text="Loading..."/>
+		</content>
+	</Page>
+</core:View>

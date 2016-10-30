@@ -5,40 +5,47 @@
 			xmlns:html="http://www.w3.org/1999/xhtml"
 			xmlns:tnt="sap.tnt"
 			xmlns:l="sap.ui.layout"
+			xmlns:local="KIS.control"
 			controllerName="KIS.controller.Main"
 			height="100%"
 			class="KIS">
-	<tnt:ToolPage id="toolPage" defaultTransitionName="fade">
+	<tnt:ToolPage id="toolPage" defaultTransitionName="fade" class="KIS-Main">
 		<tnt:header>
-			<tnt:ToolHeader content="{path: 'mainmenu>/horizmenu', factory: '.horizMenuCreateContent' }" width="100%"></tnt:ToolHeader>
+			<tnt:ToolHeader content="{path: 'view>/horizmenu', factory: '.horizMenuCreateContent' }" width="100%"></tnt:ToolHeader>
 		</tnt:header>
 		<tnt:sideContent>
 			<tnt:SideNavigation itemSelect="onPressVerticalMenuItem">
-				<tnt:NavigationList items="{path: 'mainmenu>/applications' }">
-					<tnt:NavigationListItem text="{mainmenu>title}"
-											icon="{mainmenu>icon}"
-											expanded="{mainmenu>expanded}"
-											items="{ path: 'mainmenu>items', templateShareable: false }"
-											key="{mainmenu>key}">
-						<tnt:NavigationListItem text="{mainmenu>title}"
-												key="{mainmenu>key}"/>
+				<tnt:NavigationList items="{path: 'view>/applications' }">
+					<tnt:NavigationListItem text="{view>title}"
+											icon="{view>icon}"
+											expanded="{view>expanded}"
+											items="{ path: 'view>items', templateShareable: false }"
+											key="{view>key}">
+						<tnt:NavigationListItem text="{view>title}"
+												key="{view>key}"/>
 					</tnt:NavigationListItem>
 				</tnt:NavigationList>
 				<tnt:fixedItem>
-					<tnt:NavigationList items="{path: 'mainmenu>/system' }">
-						<tnt:NavigationListItem text="{mainmenu>title}"
-												icon="{mainmenu>icon}"
-												expanded="{mainmenu>expanded}"
-												items="{ path: 'mainmenu>items', templateShareable: false }"
-												key="{mainmenu>key}">
-							<tnt:NavigationListItem text="{mainmenu>title}"
-													key="{mainmenu>key}"/>
+					<tnt:NavigationList items="{path: 'view>/system' }">
+						<tnt:NavigationListItem text="{view>title}"
+												icon="{view>icon}"
+												expanded="{view>expanded}"
+												items="{ path: 'view>items', templateShareable: false }"
+												key="{view>key}">
+							<tnt:NavigationListItem text="{view>title}"
+													key="{view>key}"/>
 						</tnt:NavigationListItem>
 					</tnt:NavigationList>
 				</tnt:fixedItem>
 			</tnt:SideNavigation>
 		</tnt:sideContent>
 		<tnt:mainContents>
+			<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="kis-section-header">
+				<items>
+					<Text text="{view>/section/sectionTitle}" class="kis-section-header-title"/>
+					<Button id="btn_section_close" icon="sap-icon://decline" press="onPressSectionClose" visible="{view>/section/showBtnClose}"/>
+				</items>
+			</FlexBox>
 			<NavContainer id="pageContainer"><pages></pages></NavContainer>
 		</tnt:mainContents>
 	</tnt:ToolPage>
